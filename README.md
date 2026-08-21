@@ -4,11 +4,9 @@ A Julia package for numerically finding and verifying decompositions of polynomi
 
 ## Installation
 
-From the Julia REPL:
+To install the package, in Julia, enter the package manager by pressing `]` and then type
 
-```julia
-using Pkg
-Pkg.add(url="https://github.com/matteobechere/PowerDecompositions")
+`add https://github.com/matteobechere/PowerDecompositions.jl`.
 
 ## Basic usage
 
