@@ -10,6 +10,7 @@ To install the package, in Julia, enter the package manager by pressing `]` and 
 
 ## Basic usage
 
+```
 using PowerDecompositions
 using DynamicPolynomials
 
@@ -19,3 +20,4 @@ F = x^3 + y^3
 result = decompose_powers(F, 3)
 
 print_decomposition(result)
+```
