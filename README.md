@@ -1,6 +1,6 @@
 # PowerDecompositions.jl
 
-A Julia package for numerically finding and verifying decompositions of polynomials as sums of powers of linear forms.
+A Julia package for numerically finding and verifying decompositions of polynomials as sums of powers of forms.
 
 ## Installation
 
