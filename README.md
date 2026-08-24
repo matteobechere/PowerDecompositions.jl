@@ -13,11 +13,18 @@ To install the package, in Julia, enter the package manager by pressing `]` and 
 ```
 using PowerDecompositions
 using DynamicPolynomials
+using Random
 
-@polyvar x y
+@polyvar x y z
 
-F = (x^2 + y^2)^3 + (x * y)^3
-result = decompose_powers(F, 3)
+Random.seed!(20260824)
+
+result = decompose_powers(
+    (x^2 + y^2)^3 + (x * y)^3 - (x^2 - z^2)^3,
+    3;
+    attempts=16,
+    max_rank_iterations=2000,
+)
 
 print_decomposition(result)
 ```
