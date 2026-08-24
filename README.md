@@ -16,7 +16,7 @@ using DynamicPolynomials
 
 @polyvar x y
 
-F = x^3 + y^3
+F = (x^2 + y^2)^3 + (x * y)^3
 result = decompose_powers(F, 3)
 
 print_decomposition(result)
