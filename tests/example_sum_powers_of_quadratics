@@ -1,0 +1,95 @@
+using PowerDecompositions
+using DynamicPolynomials
+using Random
+
+
+@polyvar x y z w
+
+"""
+Run and print one example without stopping the rest of the file if the
+solver does not find a decomposition.
+"""
+function run_example(name, F, d; seed, kwargs...)
+    println("\n", "="^78)
+    println(name)
+    println("F = ", F)
+    println("Requested power d = ", d)
+    println("Degree of the returned forms = degree(F)/d")
+
+    Random.seed!(seed)
+    result = try
+        decompose_powers(
+            F,
+            d;
+            attempts=16,
+            max_rank_iterations=400,
+            kwargs...,
+        )
+    catch err
+        println("The example raised an error: ", sprint(showerror, err))
+        return nothing
+    end
+
+    print_decomposition(result)
+    result
+end
+
+results = Dict{String,Any}()
+
+# 1. One square of a binary quadratic form.
+results["rank_one_quadratic_square"] = run_example(
+    "1. Rank-one binary quartic: square of a quadratic",
+    (x^2 + 2 * x * y + 3 * y^2)^2,
+    2;
+    seed=20260901,
+)
+
+# 2. A binary sextic written as a sum of three cubes of quadratics.
+results["binary_three_quadratic_cubes"] = run_example(
+    "2. Binary sextic: sum of three quadratic cubes",
+    (x^2 + y^2)^3 +
+    (x^2 + 2 * x * y + 2 * y^2)^3 +
+    (2 * x^2 - 2 * x * y + y^2)^3,
+    3;
+    seed=20260905,
+)
+
+# 3. A ternary sextic with two quadratic summands.
+results["ternary_two_quadratic_cubes"] = run_example(
+    "3. Ternary sextic: sum of two quadratic cubes",
+    (x^2 + y^2 + z^2 + x * y)^3 +
+    (2 * x^2 + y^2 + 3 * z^2 - x * z + y * z)^3,
+    3;
+    seed=20260906,
+)
+
+
+# 4. A negative coefficient of an even power can be absorbed by allowing a
+#     complex-valued quadratic form. The input polynomial itself still has
+#     real coefficients.
+results["complex_quadratic_fourth_powers"] = run_example(
+    "4. Complex decomposition of fourth powers of quadratics",
+    (x^2 + y^2)^4 - (x^2 - x * y + 2 * y^2)^4,
+    4;
+    seed=20260910,
+    field=:complex,
+)
+
+# 5. Four variables and two cubic powers of quadratic forms.
+results["quaternary_two_quadratic_cubes"] = run_example(
+    "5. Quaternary sextic: sum of two quadratic cubes",
+    (x^2 + y^2 + z^2 + w^2 + x * y + z * w)^3 +
+    (2 * x^2 + y^2 - z^2 + 3 * w^2 + x * z - y * w)^3,
+    3;
+    seed=20260911,
+)
+
+
+println("\n", "="^78)
+println("Finished ", length(results), " examples.")
+println(
+    "Verified decompositions: ",
+    count(result -> !isnothing(result) && result.verified, values(results)),
+    "/",
+    length(results),
+)
