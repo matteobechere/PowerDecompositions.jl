@@ -1,6 +1,6 @@
 # PowerDecompositions.jl
 
-A Julia package for numerically finding and verifying decompositions of polynomials as sums of powers of forms.
+A Julia package for numerically finding and verifying decompositions of polynomials as sums of powers of forms (homogeneous polynomials).
 
 ## Installation
 
@@ -30,7 +30,7 @@ $$
 F \approx \sum_{i=1}^{r} \omega_i q_i^d,
 $$
 
-where each $q_i$ is a homogeneous form of degree $h=\frac{\deg(F)}{d}$.
+where each $q_i$ is a form of degree $h=\frac{\deg(F)}{d}$.
 
 In particular, the $q_i$ are linear forms only when $\deg(F)=d$.
 
